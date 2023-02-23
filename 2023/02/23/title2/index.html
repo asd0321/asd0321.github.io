@@ -20,28 +20,32 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Be the change you wish to see in the world">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="介绍  1.浅拷贝：改变一个值影响另一个（赋值的是引用地址）  2.深拷贝：改变一个值另一个值不会跟着改变 要求  1.支持拷贝Object、Array、Map、Set、Date、RegExp、Error、函数等类型的值  2.支持值的递归引用 方法  1234567891011121314151617181920212223242526272829303132333435363738394041">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS深拷贝">
+<meta property="og:url" content="http://example.com/2023/02/23/title2/index.html">
 <meta property="og:site_name" content="Be the change you wish to see in the world">
+<meta property="og:description" content="介绍  1.浅拷贝：改变一个值影响另一个（赋值的是引用地址）  2.深拷贝：改变一个值另一个值不会跟着改变 要求  1.支持拷贝Object、Array、Map、Set、Date、RegExp、Error、函数等类型的值  2.支持值的递归引用 方法  1234567891011121314151617181920212223242526272829303132333435363738394041">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-23T14:20:13.000Z">
+<meta property="article:modified_time" content="2023-02-23T13:57:52.902Z">
 <meta property="article:author" content="eve">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2023/02/23/title2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Be the change you wish to see in the world</title>
+  <title>JS深拷贝 | Be the change you wish to see in the world</title>
   
 
 
@@ -139,9 +143,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -157,10 +162,9 @@
       <meta itemprop="name" content="Be the change you wish to see in the world">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/23/title2/" class="post-title-link" itemprop="url">JS深拷贝</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          JS深拷贝
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -184,104 +188,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>  1.浅拷贝：改变一个值影响另一个（赋值的是引用地址）<br>  2.深拷贝：改变一个值另一个值不会跟着改变</p>
+        <h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>  1.浅拷贝：改变一个值影响另一个（赋值的是引用地址）<br>  2.深拷贝：改变一个值另一个值不会跟着改变</p>
 <h5 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h5><p>  1.支持拷贝Object、Array、Map、Set、Date、RegExp、Error、函数等类型的值<br>  2.支持值的递归引用</p>
 <h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">function deepClone(obj) &#123;</span><br><span class="line">  // // 基础类型、null、function判断</span><br><span class="line">  if(typeof obj !== &#x27;object&#x27; || obj === null)</span><br><span class="line">    return obj;</span><br><span class="line">  </span><br><span class="line">  // 存放引用类型值的地方</span><br><span class="line">  if(!deepClone.cachedMap)</span><br><span class="line">    deepClone.cachedMap = new WeakMap(); // // 内部key弱引用，不用考虑垃圾回收</span><br><span class="line"></span><br><span class="line">  if(deepClone.cachedMap.has(obj))</span><br><span class="line">    return deepClone.cachedMap.get(obj);</span><br><span class="line">  </span><br><span class="line">    if(obj instanceof Date) &#123;</span><br><span class="line">      const temp = new Date(obj);</span><br><span class="line">      deepClone.cachedMap.set(obj, temp);</span><br><span class="line">      return temp;</span><br><span class="line">    &#125; else if(obj instanceof RegExp) &#123;</span><br><span class="line">      const temp = new RegExp(obj);</span><br><span class="line">      deepClone.cachedMap.set(obj, temp);</span><br><span class="line">      return temp;</span><br><span class="line">    &#125; else if(obj instanceof Error) &#123;</span><br><span class="line">      const temp = new Error(obj.message);</span><br><span class="line">      deepClone.cachedMap.set(obj, temp);</span><br><span class="line">      return temp;</span><br><span class="line">    &#125; else if(obj instanceof Map) &#123;</span><br><span class="line">      const temp = new Map();</span><br><span class="line">      for(let key of obj)</span><br><span class="line">        temp.set(key, deepClone(obj.get(key[0])));</span><br><span class="line">      </span><br><span class="line">      deepClone.cachedMap.set(obj, temp);</span><br><span class="line">      return temp;</span><br><span class="line">    &#125; else if(obj instanceof Set) &#123;</span><br><span class="line">      const temp = new Set();</span><br><span class="line">      obj.forEach((value) =&gt; &#123;</span><br><span class="line">        temp.add(deepClone(value))</span><br><span class="line">      &#125;);</span><br><span class="line">        </span><br><span class="line">      deepClone.cachedMap.set(obj, temp);</span><br><span class="line">      return temp;</span><br><span class="line">    &#125; else &#123; // [] 或 &#123;&#125;</span><br><span class="line">      // 如果target是一个对象，则创建一个空&#123;&#125;，如果target是一个数组，就创建一个空[]</span><br><span class="line">      const temp = new obj.constructor();</span><br><span class="line">      for(let key in obj) &#123;</span><br><span class="line">        // target是数组时，key为下标 递归克隆</span><br><span class="line">        temp[key] = deepClone(obj[key]);</span><br><span class="line">      &#125;</span><br><span class="line">      deepClone.cachedMap.set(obj, temp);</span><br><span class="line">      return temp;</span><br><span class="line">    &#125; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  let obj = &#123;</span><br><span class="line">    array: [ &#123; a: 1 &#125;, 100 ],</span><br><span class="line">    object: &#123;</span><br><span class="line">      b: 2,</span><br><span class="line">      c: &#123;</span><br><span class="line">        d: 1000</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    fn: function() &#123;</span><br><span class="line">      console.log(&#x27;fn&#x27;);</span><br><span class="line">    &#125;,</span><br><span class="line">    set: new Set([&#x27;d&#x27;, 1]),</span><br><span class="line">    map: new Map([[&#x27;f&#x27;, 3], [&#x27;g&#x27;, 100]]),</span><br><span class="line">    regex: /hji/,</span><br><span class="line">    nullValue: null,</span><br><span class="line">    date: new Date(),</span><br><span class="line">    error: new Error(&#x27;error&#x27;),</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  var obj1 = deepClone(obj);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/23/timestamp/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="eve">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Be the change you wish to see in the world">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/23/timestamp/" class="post-title-link" itemprop="url">JS获取处理时间</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-02-23 22:20:13 / Modified: 23:04:10" itemprop="dateCreated datePublished" datetime="2022-02-23T22:20:13+08:00">2022-02-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="一、获取月份天数"><a href="#一、获取月份天数" class="headerlink" title="一、获取月份天数"></a>一、获取月份天数</h4><p>  1.通过是否闰年判断天数</p>
-<p><img src="/2022/02/23/timestamp/01.jpg" alt="img"></p>
-<center>获取月份天数<center>
-
-<ol start="2">
-<li>通过new Date(year, month, date, hour, minute, second)</li>
-</ol>
-<p><img src="/2022/02/23/timestamp/02.jpg" alt="img"></p>
-<p>获取月份最后一天</p>
-<h4 id="二、获取本周时间戳"><a href="#二、获取本周时间戳" class="headerlink" title="二、获取本周时间戳"></a>二、获取本周时间戳</h4><p><img src="/2022/02/23/timestamp/03.jpg" alt="img"></p>
-<p>本周第一天-今天晚上时间戳</p>
-<h4 id="三、获取本月月初到今天晚上的时间戳"><a href="#三、获取本月月初到今天晚上的时间戳" class="headerlink" title="三、获取本月月初到今天晚上的时间戳"></a>三、获取本月月初到今天晚上的时间戳</h4><p><img src="/2022/02/23/timestamp/04.jpg" alt="img"></p>
-<p>本月初-今天晚上时间戳</p>
-<h4 id="四、格式化时间"><a href="#四、格式化时间" class="headerlink" title="四、格式化时间"></a>四、格式化时间</h4><p><img src="/2022/02/23/timestamp/05.jpg" alt="img"></p>
-<p>strPad</p>
-<p><img src="/2022/02/23/timestamp/06.jpg" alt="img"></p>
-<p>date</p>
-<p><img src="/2022/02/23/timestamp/07.jpg" alt="img"></p>
-<p>date</p>
-<p><img src="/2022/02/23/timestamp/08.jpg" alt="img"></p>
-<p>运行截图</p>
-</center></center>
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/23/timestamp/" rel="prev" title="JS获取处理时间">
+      <i class="fa fa-chevron-left"></i> JS获取处理时间
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -334,6 +268,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A6%81%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">方法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
